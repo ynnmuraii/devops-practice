@@ -7,7 +7,7 @@ class Handler(BaseHTTPRequestHandler):
         self.send_response(200)
         self.send_header("Content-type", "text/html")
         self.end_headers()
-        message = "<h1>Hello from Retivov</h1><p>Pаботает</p>"
+        message = "<h1>Hello from Retivov</h1><p>Za4tite 1 labu please!!!</p>"
         self.wfile.write(message.encode("utf-8"))
 
 if __name__ == "__main__":
