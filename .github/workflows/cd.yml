@@ -43,4 +43,3 @@ jobs:
             echo 'Deployment completed successfully!'
             echo 'Your application is available at: http://app.retivov.course.prafdin.ru'
         "
-        "
