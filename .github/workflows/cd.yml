@@ -1,0 +1,46 @@
+name: CD
+on:
+  release:
+    types: [ published ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup SSH
+      run: |
+        mkdir -p ~/.ssh
+        echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/vm_key
+        chmod 600 ~/.ssh/vm_key
+        
+        # Добавляем host key для FRP
+        ssh-keyscan -p 2448 course.prafdin.ru >> ~/.ssh/known_hosts
+        
+    - name: Deploy to VM
+      run: |
+        echo "🚀 Starting deployment..."
+        ssh -o BatchMode=yes \
+            -i ~/.ssh/vm_key \
+            -p 2448 \
+            user@course.prafdin.ru "
+            cd /home/user/devops/devops-practice/catty-reminders-app
+            echo '1. Pulling latest code from github-actions branch...'
+            git fetch origin
+            git reset --hard origin/github-actions
+            echo '2. Activating virtual environment...'
+            source venv/bin/activate
+            echo '3. Installing dependencies...'
+            pip install -r requirements.txt
+            echo '4. Restarting service...'
+            sudo systemctl daemon-reload
+            sudo systemctl restart catty.service
+            sleep 5
+            echo '5. Checking service status...'
+            sudo systemctl status catty.service --no-pager
+            echo 'Deployment completed successfully!'
+            echo 'Your application is available at: http://app.retivov.course.prafdin.ru'
+        "
+        "
