@@ -26,7 +26,7 @@ jobs:
             -i ~/.ssh/vm_key \
             -p 2448 \
             user@course.prafdin.ru "
-            cd /home/user/devops/devops-practice/catty-reminders-app
+            cd /home/user/devops/devops-practice
             echo '1. Pulling latest code from github-actions branch...'
             git fetch origin
             git reset --hard origin/github-actions
