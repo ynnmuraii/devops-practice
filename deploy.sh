@@ -2,7 +2,7 @@
 #!/bin/bash
 set -e
 
-APP_DIR="/home/user/Desktop/lab1/catty-reminders-app"
+APP_DIR="/home/user/devops/devops-practice"
 VENV_DIR="$APP_DIR/venv"
 LOG_FILE="$APP_DIR/uvicorn.log"
 PORT=8181
